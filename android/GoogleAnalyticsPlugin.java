@@ -136,9 +136,9 @@ public class GoogleAnalyticsPlugin implements IPlugin {
 		this._intent = intent;
 	}
 
-	public void setInstallReferrer(String referrer) {
+	public void setInstallReferrer(Context context, Intent intent) {
 		CampaignTrackingReceiver receiver = new CampaignTrackingReceiver();
-		receiver.onReceive(this._ctx, this._intent);
+		receiver.onReceive(context, intent);
 	}
 
 	public void onActivityResult(Integer request, Integer result, Intent data) {
