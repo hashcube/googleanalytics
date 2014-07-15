@@ -4,4 +4,9 @@
 	<!--Google Analytics-->
 	<meta-data android:name="GOOGLE_TRACKING_ID" android:value="" />
 	<service android:name="com.google.analytics.tracking.android.CampaignTrackingService" />
+	<receiver android:name="com.google.analytics.tracking.android.CampaignTrackingReceiver" android:exported="true">
+		<intent-filter>
+			<action android:name="com.android.vending.INSTALL_REFERRER" />
+		</intent-filter>
+	</receiver>
 <!--END_PLUGINS_APPLICATION-->

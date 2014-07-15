@@ -14,7 +14,6 @@ import com.google.analytics.tracking.android.Fields;
 import com.google.analytics.tracking.android.GAServiceManager;
 import com.google.analytics.tracking.android.MapBuilder;
 import com.google.analytics.tracking.android.Logger.LogLevel;
-import com.google.analytics.tracking.android.CampaignTrackingReceiver;
 
 import android.app.Activity;
 import android.content.Intent;
@@ -29,14 +28,11 @@ public class GoogleAnalyticsPlugin implements IPlugin {
 
 	private Tracker mGaTracker;
 	private GoogleAnalytics mGaInstance;
-	Context _ctx;
-	Intent _intent;
 
 	public GoogleAnalyticsPlugin() {
 	}
 
 	public void onCreateApplication(Context applicationContext) {
-		this._ctx = applicationContext;
 	}
 
 	public void onCreate(Activity activity, Bundle savedInstanceState) {
@@ -133,12 +129,9 @@ public class GoogleAnalyticsPlugin implements IPlugin {
 	}
 
 	public void onNewIntent(Intent intent) {
-		this._intent = intent;
 	}
 
 	public void setInstallReferrer(String referrer) {
-		CampaignTrackingReceiver receiver = new CampaignTrackingReceiver();
-		receiver.onReceive(this._ctx, this._intent);
 	}
 
 	public void onActivityResult(Integer request, Integer result, Intent data) {
