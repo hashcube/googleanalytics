@@ -1,7 +1,5 @@
 import device;
 
-var hasNativeEvents = NATIVE && NATIVE.plugins && NATIVE.plugins.sendEvent;
-
 var GoogleAnalytics = Class(function () {
 	this.init = function () {
 		this._globalProperties = {};
@@ -16,26 +14,14 @@ var GoogleAnalytics = Class(function () {
 		// copy in global properties
 		merge(data, this._globalProperties);
 
-		if (DEBUG) {
-			logger.log("track: ", name, JSON.stringify(data));
-		}
-
-		if (hasNativeEvents) {
 			NATIVE.plugins.sendEvent("GoogleAnalyticsPlugin", "track", JSON.stringify({
 					eventName: name,
 					params: data
 				}));
-		}
 	};
 
 	this.trackScreen = function(name) {
-		if (DEBUG) {
-			logger.log("trackScreen: ", name);
-		}
-
-		if (hasNativeEvents) {
 			NATIVE.plugins.sendEvent("GoogleAnalyticsPlugin", "trackScreen", name);
-		}
 	};
 
 	this.setGlobalProperty = function (key, value) {
@@ -49,7 +35,6 @@ var GoogleAnalytics = Class(function () {
 			m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
 			})(window,document,'script','//www.google-analytics.com/analytics.js','ga');
 
-			console.log('googleAnalytics addon [info]: create - ' + CONFIG.addons.googleanalytics.trackingId + ' - ' + CONFIG.addons.googleanalytics.url);
 			ga('create', CONFIG.addons.googleanalytics.trackingId, CONFIG.addons.googleanalytics.url);
 			ga('send', 'pageview');
 		} catch (err) {
@@ -64,8 +49,6 @@ var GoogleAnalytics = Class(function () {
 				'page': '/' + page,
 				'title': displayTitle
 			});
-		} else {
-			console.log('googleAnalytics addon [warn]: googleAnalytics object is not defined. Not tracking page: ' + page);
 		}
 	};
 
@@ -78,8 +61,6 @@ var GoogleAnalytics = Class(function () {
 				'eventLabel': label,
 				'value': value || 0
 			});
-		} else {
-			console.log('googleAnalytics addon [warn]: googleAnalytics object is not defined. Not tracking event: ' + [category, action, label].join(':'));
 		}
 	};
 });
